@@ -22,5 +22,7 @@
 4. После ввода программа выведет коэфиценты.
 
 ## Скриншоты тестов
-![image](https://github.com/IamMaxN/LabWork6/assets/146973595/02edbd95-56a3-4f75-9a8e-cdbea96ad824)
-![image](https://github.com/IamMaxN/LabWork6/assets/146973595/78defcb6-0a91-42d7-a572-86adf24692d6)
+![image](https://github.com/IamMaxN/LabWork6/assets/146973595/9d8b5189-36c0-4e2c-a619-2d2507e575ab)
+![image](https://github.com/IamMaxN/LabWork6/assets/146973595/922eef10-720c-4ed3-bf96-c288eb516f85)
+
+

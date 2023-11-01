@@ -1,47 +1,29 @@
-def calculate_weights(n):
-    criteria = []
-    pairwise_comparisons = []
-    
-    # Ввод данных
-    for i in range(n):
-        criterion = input(f"Введите название критерия {i+1}: ")
-        criteria.append(criterion)
-        
-    for i in range(n):
-        for j in range(i+1, n):
-            comparison = float(input(f"Введите попарное сравнение для критериев {criteria[i]} и {criteria[j]} (отношение важности): "))
-            pairwise_comparisons.append(comparison)
-            
-    # Расчет весовых коэффициентов
-    matrix = []
-    k = 0
-    for i in range(n):
-        row = []
-        for j in range(n):
-            if i == j:
-                row.append(1)
-            elif i < j:
-                row.append(pairwise_comparisons[k])
-                k += 1
-            else:
-                row.append(1 / pairwise_comparisons[k-1])
+def calculate_weights(matrix):
+    n = len(matrix)
+    row_sums = [sum(row) for row in matrix]
+    normalized_matrix = [[element / row_sum for element in row] for row, row_sum in zip(matrix, row_sums)]
+    column_sums = [sum(col) for col in zip(*normalized_matrix)]
+    weights = [col_sum / n for col_sum in column_sums]
+    return weights
 
-                k -= 1
-        matrix.append(row)
-    
-    weights = []
+def main():
+    n = int(input("Введите количество критериев: "))
+    criteria_matrix = [[0] * n for _ in range(n)]
+
     for i in range(n):
-        weight = 1
-        for j in range(n):
-            weight *= matrix[i][j]
-        weight = weight ** (1/n)
-        weights.append(weight)
-        
-    # Вывод результатов
+        criteria_matrix[i][i] = 1
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            pairwise_comparison = float(input(f"Введите отношение важности критерия {i + 1} к критерию {j + 1} (от 1 до 9): "))
+            criteria_matrix[i][j] = pairwise_comparison
+            criteria_matrix[j][i] = 1 / pairwise_comparison
+
+    weights = calculate_weights(criteria_matrix)
+
     print("Весовые коэффициенты:")
-    for i in range(n):
-        print(f"{criteria[i]}: {weights[i]:.2f}")
+    for i, weight in enumerate(weights):
+        print(f"Критерий {i + 1}: {weight:.2f}")
 
-# Пример использования
-n = int(input("Введите количество критериев: "))
-calculate_weights(n)
+if __name__ == "__main__":
+    main()
